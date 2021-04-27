@@ -1,34 +1,56 @@
-/* Question 3 : Create a structure for a student database having different variables, such as student_name, age, roll_no and address. Use this structure in your program to store the infomration about you and then print it on the console.
-This Question has been done by CS20B1044 Avinash R Changrani */
+/* Question 3 : WAP to find out the mean ans Standard deviation of the elements in a LinkedList. What is the complexity of the algorithm? Please state the reason.
+This question is done by CS20B1044 Avinash R Changrani */
 #include<stdio.h>
-// Defining the Structure
-struct student {
-    char student_name[50];
-    int age;
-    char roll_no[20];
-    char address[100];
-  } ;
+#include <stdlib.h>
+#include<malloc.h>
+#include<math.h>
+// Declaration of structure (node) of the Linked List
+struct linkedlist{
+  int data;
+  struct linkedlist *nextnode_ptr;
+};
+
 void main()
-{  
-  char temp;
-  struct student s;
-// Getting information from User and storing it 
-  printf("Enter information about yourself:\n");
-  printf("Enter name: \n");
-  scanf("%[^\n]", s.student_name);
-  printf("Enter age: \n");
-  scanf("%d", &s.age);
-  printf("Enter roll number: \n");
-  scanf("%s", s.roll_no);
-  printf("Enter address: \n");
-  scanf("%c",&temp); 
-  scanf("%[^\n]", s.address);
-// Printing the Information stored
-  printf("Information about the student : \n");
-  printf("Name: %s \n", s.student_name);
-  printf("Age: %d\n", s.age);
-  printf("Roll number: %s\n", s.roll_no);
-  printf("Address: %s \n", s.address);
+{
+   struct linkedlist *head = NULL;
+   head = (struct linkedlist*)malloc(sizeof(struct linkedlist));
+// Asking the user for number of elements(nodes) for the linked list
+  int n;
+  printf("Please enter the number of elements(nodes) for the linked list\n");
+  scanf("%d", &n);   
+  struct linkedlist *ptr = head;
+  for(int i = 0; i < n; i++){ 
+     printf("Enter the Element (Node) number %d of the linked list\n", i + 1);
+// For nodes other than the end, take and  assign the data then allocate memory for the next node pointer and change the pointer from current node to the next one      
+     if ( i < n-1){
+        scanf("%d", &ptr->data);
+        ptr->nextnode_ptr = (struct linkedlist*)malloc(sizeof(struct linkedlist));
+        ptr = ptr->nextnode_ptr;
+     }
+// for the final node, we take the data and assign the pointer to  next node's pointer as null     
+     else{
+        scanf("%d", &ptr->data);
+        ptr->nextnode_ptr = NULL;
+     }
+  } 
+// To calculate mean we firat calculate sum by counting elements starting rom the head node and then divide by n elements  
+  int sum = 0;
+  struct linkedlist *pointer = head;
+  while (pointer != NULL){
+      sum += pointer->data;
+      pointer = pointer->nextnode_ptr;
+  }
+  float mean = sum/n;
+  printf("The mean of elements(nodes) for the linked list is %f\n", mean);
   
-  
+// To calculate standard deviation, we first calculate variance then find out the square root to get standard deviation    
+  float variance = 0;
+  struct linkedlist *pointer1 = head;
+  while (pointer1 != NULL){
+      variance += ((pointer1->data - mean) * (pointer1->data - mean))/n;
+      pointer1 = pointer1->nextnode_ptr;
+  }
+  float std_deviation = sqrt(variance);
+  printf("The standard deviation of elements(nodes) for the linked list is %f\n", std_deviation);
+
 }
