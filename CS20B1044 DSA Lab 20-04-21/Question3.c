@@ -19,11 +19,6 @@ void main()
   printf("Please enter the number of elements(nodes) for the linked list\n");
   scanf("%d", &n);   
   struct linkedlist *ptr = head;
-// if ptr is null, there's no space in memory  
-  if(ptr == NULL){  
-     printf("Unable to allocate memory \n");
-     exit(0);
-  } 
   for(int i = 0; i < n; i++){ 
      printf("Enter the Element (Node) number %d of the linked list\n", i + 1);
 // For nodes other than the end, take and  assign the data then allocate memory for the next node pointer and change the pointer from current node to the next one      
