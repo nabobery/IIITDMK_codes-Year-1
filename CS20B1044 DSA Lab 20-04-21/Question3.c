@@ -1,4 +1,4 @@
-/* Question 3 : WAP to find out the mean ans Standard deviation of the elements in a LinkedList. What is the complexity of the algorithm? Please state the reason.
+/* Question 3 : WAP to find out the mean and Standard deviation of the elements in a LinkedList. What is the complexity of the algorithm? Please state the reason.
 This question is done by CS20B1044 Avinash R Changrani */
 #include<stdio.h>
 #include <stdlib.h>
