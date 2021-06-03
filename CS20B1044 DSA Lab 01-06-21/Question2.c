@@ -28,7 +28,7 @@ struct Node{
 struct Queue{
     struct Node *front;
     struct Node *rear;
-} *queue;
+};
 
 struct stack{
     struct Node *top;
@@ -43,6 +43,7 @@ void enter_lot(struct Node *head, struct Queue *queue, int Maxsize);
 void display_lot(struct Node *head);
 int leave_lot(struct Node *head);
 int remove_lot(struct Node *head, struct Queue *queue, int remove_car);
+void insert(struct Node *head, int n);
 
 void main(){
     int Maxsize;
@@ -140,7 +141,7 @@ void display_lot(struct Node *head){
     if (head->next == NULL){
         printf(" Parking Lot Empty\n");
     }
-    printf(" The cars (tokens) in the parking lot are : \n");
+    printf(" The cars (tokens) in the parking lot are : ");
     while (ptr != NULL){
         printf("%d ", ptr->token);
         ptr = ptr->next;
@@ -153,7 +154,6 @@ int leave_lot(struct Node *head){
     int data = 0;
     struct Node* temp;
     if(head->next == NULL){
-        printf(" Parking Lot Empty\n");
         return -1;
     }
     else {
@@ -165,6 +165,15 @@ int leave_lot(struct Node *head){
     }
     count -= 1;
     return data;
+}
+// To insert the car back to the queue
+void insert(struct Node *head, int n){
+    struct Node *temp = (struct Node*) malloc(sizeof(struct Node));
+    temp->token = n;
+    temp->next = head->next;
+    head->next = temp;
+    head->token += 1;
+    count++;
 }
 
 // For Leaving(Removing) from kth position
@@ -181,7 +190,7 @@ int remove_lot(struct Node *head, struct Queue *queue, int remove_car){
     }
     leave_lot(head);
     while (stack->top != NULL){
-        enter_lot(head, queue, pop(stack));
+        insert(head, pop(stack));
     }
 }
 
