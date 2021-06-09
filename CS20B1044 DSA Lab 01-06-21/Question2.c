@@ -35,8 +35,8 @@ struct stack{
 };
 
 int count = 0; // to keep count of cars in the lot
-// Function Declarations for stack and queue operations
 
+// Function Declarations for stack and queue operations
 void push(struct stack *stack, int token);
 int pop(struct stack *stack);
 void enter_lot(struct Node *head, struct Queue *queue, int Maxsize);
@@ -80,7 +80,7 @@ void main(){
                 break;
             case 'R':
             case 'r':
-                printf(" Please Enter the poistion of the car you want to remove from the parking lot : \n");
+                printf(" Please Enter the position of the car you want to remove from the parking lot : \n");
                 scanf("%d", &remove_car);
                 remove_lot(head, queue, remove_car);
                 display_lot(head);
@@ -136,6 +136,7 @@ void enter_lot(struct Node *head, struct Queue *queue, int Maxsize){
     }
 }
 
+// For displaying the car lot
 void display_lot(struct Node *head){
     struct Node *ptr = head->next;
     if (head->next == NULL){
@@ -153,6 +154,7 @@ void display_lot(struct Node *head){
 int leave_lot(struct Node *head){
     int data = 0;
     struct Node* temp;
+    // If there's no car
     if(head->next == NULL){
         return -1;
     }
@@ -173,7 +175,7 @@ void insert(struct Node *head, int n){
     temp->next = head->next;
     head->next = temp;
     head->token += 1;
-    count++;
+    count += 1;
 }
 
 // For Leaving(Removing) from kth position
@@ -183,15 +185,16 @@ int remove_lot(struct Node *head, struct Queue *queue, int remove_car){
     stack->top = NULL;
     if (head->next == NULL){
         printf(" Parking Lot Empty\n");
+        return 0;
     }
-    while (head->next->token < remove_car){
-        data = leave_lot(head);
-        push(stack,data);
-    }
-    leave_lot(head);
-    while (stack->top != NULL){
-        insert(head, pop(stack));
-    }
+        while (head->next->token < remove_car){
+            data = leave_lot(head);
+            push(stack,data);
+        }
+        leave_lot(head);
+        while (stack->top != NULL){
+            insert(head, pop(stack));
+        }
 }
 
 
