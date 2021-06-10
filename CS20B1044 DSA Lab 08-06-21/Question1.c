@@ -7,6 +7,7 @@ This code is done by CS20B1044 Avinash R Changrani */
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include<math.h>
 
 // Structure of Binary Tree node
 struct Binary_tree{
@@ -28,6 +29,9 @@ void Preorder(struct Binary_tree *root);
 void Inorder(struct Binary_tree *root);
 void Postorder(struct Binary_tree *root);
 void deleteBinary_tree(struct Binary_tree *root);
+int add(struct Binary_tree *root);
+int sizeofBinarytree(struct Binary_tree *root);
+float sum_deviation(struct Binary_tree *root, float mean);
 
 void main(){
     struct Binary_tree *root = (struct Binary_tree*)malloc(sizeof(struct Binary_tree));
@@ -48,6 +52,14 @@ void main(){
     printf("The Postorder traversal of the given Binary tree is : \n");
     Postorder(root);
     printf("\n");
+    float sum = add(root);
+    int size = sizeofBinarytree(root);
+    float mean = sum / size;
+    printf("The mean of the given Binary tree is : %f \n", mean);
+    float sum_dev = sum_deviation(root, mean);
+    float variance = sum_dev/size;
+    float strandard_deviation = sqrt(variance);
+    printf("The Standard deviation of the given Binary tree is : %f \n", strandard_deviation);
     deleteBinary_tree(root);
 }
 
@@ -83,4 +95,25 @@ void deleteBinary_tree(struct Binary_tree *root){
     deleteBinary_tree(root->left);
     deleteBinary_tree(root->right);
     free(root);    
+}
+
+int sizeofBinarytree(struct Binary_tree *root){
+    if (root == NULL)
+        return 0;
+    else 
+        return (sizeofBinarytree(root->left) + 1 + sizeofBinarytree(root->right));  
+}
+
+int add(struct Binary_tree *root){
+    if (root == NULL)
+        return 0;
+    else
+        return ((root->data) + add(root->left) + add(root->right));    
+}
+
+float sum_deviation(struct Binary_tree *root, float mean){
+    if (root == NULL)
+        return 0;
+    else 
+        return (((root->data - mean)*(root->data + mean)) + sum_deviation(root->left, mean) + sum_deviation(root->right, mean));    
 }
